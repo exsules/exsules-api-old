@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914182157) do
+ActiveRecord::Schema.define(version: 20150924223746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,25 @@ ActiveRecord::Schema.define(version: 20150914182157) do
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
+  create_table "profiles", force: :cascade do |t|
+    t.string   "first_name",                          null: false
+    t.string   "last_name",                           null: false
+    t.string   "handle",                              null: false
+    t.string   "sex",        limit: 1
+    t.string   "location"
+    t.string   "bio"
+    t.date     "birthday"
+    t.boolean  "searchable",           default: true
+    t.integer  "user_id",                             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "profiles", ["first_name"], name: "index_profiles_on_first_name", using: :btree
+  add_index "profiles", ["last_name"], name: "index_profiles_on_last_name", using: :btree
+  add_index "profiles", ["searchable"], name: "index_profiles_on_searchable", using: :btree
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -70,8 +89,9 @@ ActiveRecord::Schema.define(version: 20150914182157) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "username",                               null: false
-    t.boolean  "intial_setup",           default: true
-    t.string   "languange"
+    t.string   "username_lower",                         null: false
+    t.boolean  "initial_setup",          default: true
+    t.string   "language"
     t.boolean  "disable_mail",           default: false
   end
 

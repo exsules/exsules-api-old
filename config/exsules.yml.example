@@ -1,11 +1,11 @@
 # vim:ft=ansible:
 production: &base
-  social:
-    host: social.noua.io
+  exsules:
+    host: exsules.com
     port: 443
     https: true
 
-    from_email: 'noreply@noua.io'
+    from_email: 'noreply@exsules.com'
 
     users:
       username_blacklist:

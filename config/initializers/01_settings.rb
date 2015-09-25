@@ -1,5 +1,5 @@
 class Settings < Settingslogic
-  source "#{Rails.root}/config/social.yml"
+  source "#{Rails.root}/config/exsules.yml"
   namespace Rails.env
 end
 
