@@ -23,6 +23,7 @@ gem 'seed-fu'
 gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
+gem 'friendly_id'
 
 gem 'rack-cors', require: 'rack/cors'
 

@@ -3,9 +3,15 @@ module V1
     before_action :doorkeeper_authorize!
 
     def show
-      profile = Profile.find(params[:id])
+      profile = Profile.friendly.find(params[:handle])
 
       render json: profile
+    end
+
+    def index
+      profiles = Profile.all
+
+      render json: profiles
     end
   end
 end

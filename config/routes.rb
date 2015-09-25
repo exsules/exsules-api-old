@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   scope module: :v1, constraints: ApiConstraint.new(version: 1) do
     get 'users/me' => 'users#me'
 
-    get 'profiles/:id' => 'profiles#show'
+    get 'profiles/:handle' => 'profiles#show'
+    get 'profiles' => 'profiles#index'
 
   end
 end

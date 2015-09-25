@@ -1,4 +1,6 @@
 class Profile < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
 
   belongs_to :user
 
@@ -8,6 +10,14 @@ class Profile < ActiveRecord::Base
 
   before_save :strip_names
   after_validation :strip_names
+
+  def slug_candidates
+    [
+      :handle,
+      [:first_name, :last_name],
+      [:handle, :first_name, :last_name]
+    ]
+  end
 
   protected
   def strip_names
