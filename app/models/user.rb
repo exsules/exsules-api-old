@@ -34,4 +34,21 @@ class User < ActiveRecord::Base
   def set_current_language
     self.language = I18n.locale.to_s if self.language.blank?
   end
+
+  def self.find_by_username_or_email(username_or_email)
+    if username_or_email.include?('@')
+      find_by_email(username_or_email)
+    else
+      find_by_username(username_or_email)
+    end
+  end
+
+  def self.find_by_email(email)
+    find_by(email: email.downcase)
+  end
+
+  def self.find_by_username(username)
+    find_by(username_lower: username)
+  end
+
 end

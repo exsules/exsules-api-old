@@ -5,7 +5,7 @@ gem 'rails', '4.2.4'
 gem 'pg'
 gem 'rails-api'
 
-gem 'active_model_serializers'
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
 
