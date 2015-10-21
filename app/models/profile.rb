@@ -3,6 +3,7 @@ class Profile < ActiveRecord::Base
   friendly_id :slug_candidates, use: :slugged
 
   belongs_to :user
+  has_many :posts
 
   validates :first_name, presence: true, length: { maximum: 32 }, format: { with: /\A[^;]+\z/ }
   validates :last_name, presence: true, length: { maximum: 32 }, format: { with: /\A[^;]+\z/ }

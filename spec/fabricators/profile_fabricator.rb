@@ -6,4 +6,6 @@ Fabricator(:profile) do
   sex "m"
   location "Sweden, Norrköping"
   birthday Date.today
+
+  user_id 1
 end
