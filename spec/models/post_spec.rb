@@ -14,7 +14,7 @@ RSpec.describe Post, type: :model do
       @post_text = "Found this cool project @ #{@exsules_url}"
     end
 
-    it 'should queue GatherOpenGraphDataJob if links are included' do
+    pending 'should queue GatherOpenGraphDataJob if links are included' do
       post = Fabricate.build(:post, text: @post_text)
       expect(GatherOpenGraphDataJob).to receive(:perform_later).with(instance_of(Fixnum), instance_of(String))
       post.save

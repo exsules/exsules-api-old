@@ -1,0 +1,20 @@
+postgresql:
+  image: quay.io/sameersbn/postgresql:9.4-5
+  environment:
+    - DB_USER=exsules
+    - DB_PASS=password
+    - DB_NAME=exsules_development
+  volumes:
+    - /home/blazed/dockerdata/exsulespq:/var/lib/postgresql
+redis:
+  image: quay.io/sameersbn/redis:latest
+  volumes:
+exsules:
+  build: .
+  command: foreman start -p 3000 -b '0.0.0.0'
+  links:
+    - redis:redisio
+    - postgresql:postgresql
+  volumes:
+    - .:/app
+  ports: 3000:3000

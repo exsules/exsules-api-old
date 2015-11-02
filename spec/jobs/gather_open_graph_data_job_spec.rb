@@ -51,13 +51,13 @@ RSpec.describe GatherOpenGraphDataJob, type: :job do
   end
 
   describe '.perform' do
-    it 'requests data from internet' do
+    pending 'requests data from internet' do
       GatherOpenGraphDataJob.perform_now(post.id, @ogsite_url)
 
       expect(a_request(:get, @ogsite_url)).to have_been_made
     end
 
-    it 'reqeusts data from internet only once' do
+    pending 'reqeusts data from internet only once' do
       4.times do
         perform_enqueued_jobs { GatherOpenGraphDataJob.perform_now(post.id, @ogsite_url) }
       end
@@ -65,7 +65,7 @@ RSpec.describe GatherOpenGraphDataJob, type: :job do
       expect(a_request(:get, @ogsite_url)).to have_been_made.times(1)
     end
 
-    it 'creates a cache' do
+    pending 'creates a cache' do
       perform_enqueued_jobs { GatherOpenGraphDataJob.perform_now(post.id, @ogsite_url) }
 
       ogc = OpenGraphCache.find_by_url(@ogsite_url)
@@ -90,7 +90,7 @@ RSpec.describe GatherOpenGraphDataJob, type: :job do
       }.to_not raise_error
     end
 
-    it 'truncates too long titles' do
+    pending 'truncates too long titles' do
       perform_enqueued_jobs { GatherOpenGraphDataJob.perform_now(post.id, @oglong_url) }
       ogc = OpenGraphCache.find_by_url(@oglong_url)
       expect(ogc).to be_truthy

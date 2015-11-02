@@ -35,6 +35,29 @@ class User < ActiveRecord::Base
     self.language = I18n.locale.to_s if self.language.blank?
   end
 
+  def self.build(opts = {})
+    u = User.new(opts.except(:id))
+    u.setup(opts)
+    u
+  end
+
+  def setup(opts)
+    self.username = opts[:username]
+    self.email = opts[:email]
+    self.valid?
+    errors = self.errors
+    errors.delete :profile
+    return if errors.size > 0
+    self.setup_profile(Profile.new((opts[:profile] || {}).except(:id)))
+    self
+  end
+
+  def setup_profile(profile)
+    profile.handle = "#{self.username}"
+    self.profile = profile
+    self.profile.save
+  end
+
   def self.find_by_username_or_email(username_or_email)
     if username_or_email.include?('@')
       find_by_email(username_or_email)

@@ -24,7 +24,7 @@ before_script:
   - cp config/exsules.yml.example config/exsules.yml
   - RAILS_ENV=test bundle exec rake db:create db:migrate --trace
 
-bundler_args: "--without development --jobs 3 --retry 3"
+bundler_args: "--without development --jobs 3 --retry 5"
 
 script:
   - RAILS_ENV=test SIMPLECOV=true bundle exec rspec

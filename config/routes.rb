@@ -4,12 +4,15 @@ Rails.application.routes.draw do
   end
 
   #devise_for :users
+  devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }, skip: [:passwords]
 
   scope module: :v1, constraints: ApiConstraint.new(version: 1) do
     get 'users/me' => 'users#me'
 
     get 'profiles/:handle' => 'profiles#show'
     get 'profiles' => 'profiles#index'
+
+    get 'posts/:id' => 'posts#show'
 
   end
 end
