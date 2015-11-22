@@ -1,20 +1,29 @@
+redis_data:
+  image: sameersbn/redis:latest
+  command: /bin/true
+postgresql_data:
+  image: sameersbn/postgresql:9.4-5
+  command: /bin/true
 postgresql:
-  image: quay.io/sameersbn/postgresql:9.4-5
+  image: sameersbn/postgresql:9.4-5
   environment:
     - DB_USER=exsules
     - DB_PASS=password
     - DB_NAME=exsules_development
-  volumes:
-    - /home/blazed/dockerdata/exsulespq:/var/lib/postgresql
+  volumes_from:
+    - postgresql_data
 redis:
-  image: quay.io/sameersbn/redis:latest
-  volumes:
-exsules:
+  image: sameersbn/redis:latest
+  volumes_from:
+    - redis_data
+api:
   build: .
-  command: foreman start -p 3000 -b '0.0.0.0'
+  dockerfile: Dockerfile.dev
   links:
-    - redis:redisio
-    - postgresql:postgresql
+    - "redis:redisio"
+    - "postgresql:postgresql"
   volumes:
     - .:/app
-  ports: 3000:3000
+  ports: 
+    - "3000:3000"
+    - "8025:8025" # MailHog

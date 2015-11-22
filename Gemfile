@@ -38,11 +38,11 @@ gem 'kaminari'
 
 gem 'settingslogic'
 
+gem 'puma'
 gem 'pusher'
 
 group :development do
   gem 'annotate'
-  gem 'thin'
   gem 'foreman', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -73,6 +73,3 @@ end
 group :test do
     gem 'simplecov', require: false
 end
-
-
-gem 'unicorn'
