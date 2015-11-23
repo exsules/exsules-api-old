@@ -19,6 +19,7 @@ rails_best_practices_output.html
 .env
 config/skylight.yml
 erd.pdf
+docker-compose.yml
 
 # Ignore application configuration
 /config/application.yml
