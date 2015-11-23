@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   before_save :update_username_lower
   before_save :strip_downcase_email
 
+  after_create :send_welcome_email
+
   validates :username, presence: true, length: { minimum: 3, maximum: 30  }, uniqueness: { case_sensitive: false  }, format: { with: /\A[a-zA-Z0-9_-]*\z/  }
   validates_exclusion_of :username, in: Settings.exsules.users.username_blacklist
   validates_inclusion_of :language, in: ['en', 'sv', 'no'] # TODO: Load from file and support fallbacks
@@ -34,6 +36,11 @@ class User < ActiveRecord::Base
   def set_current_language
     self.language = I18n.locale.to_s if self.language.blank?
   end
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver_later
+  end
+
 
   def self.build(opts = {})
     u = User.new(opts.except(:id))
